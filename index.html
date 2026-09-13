@@ -1,1427 +1,645 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>One Important Question ❤️</title>
+    <title>For You ❤️</title>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             overflow: hidden;
-
-            font-family: Arial, sans-serif;
-
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd6e7, #ffeef5, #ffd1e3);
             display: flex;
             justify-content: center;
             align-items: center;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ffd6e7,
-                    #fff0f5
-                );
-
             position: relative;
         }
 
+        /* Main Question Card */
+        .card {
+            width: 360px;
+            padding: 35px 25px;
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(150, 50, 90, 0.25);
+            position: relative;
+            z-index: 20;
 
-        /* =========================================
-           PHOTO GALLERY
-        ========================================= */
-
-        .photo-container {
-
-            position: fixed;
-
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            pointer-events: none;
-
-            z-index: 4;
-
-            opacity: 0;
-
-            visibility: hidden;
-
-            transition:
-                opacity 1s ease;
+            transition: 0.6s ease;
         }
 
+        .card.hide {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.75);
+            pointer-events: none;
+        }
+
+        .main-heart {
+            font-size: 55px;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        h1 {
+            margin: 10px 0;
+            color: #d6336c;
+            font-size: 32px;
+        }
+
+        .question {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            border: none;
+            padding: 13px 28px;
+            border-radius: 30px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        #yesBtn {
+            background: #ff4f87;
+            color: white;
+            box-shadow: 0 6px 15px rgba(255, 79, 135, 0.35);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.08);
+        }
+
+        #noBtn {
+            background: #eee;
+            color: #555;
+            position: relative;
+        }
+
+        /* Love message */
+        .love-message {
+            position: fixed;
+            z-index: 25;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+
+            width: min(90%, 430px);
+            padding: 25px;
+
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            text-align: center;
+
+            box-shadow: 0 15px 45px rgba(150, 50, 90, 0.25);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: 0.6s ease;
+        }
+
+        .love-message.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .love-message h2 {
+            color: #d6336c;
+            margin: 0 0 10px;
+            font-size: 28px;
+        }
+
+        .love-message p {
+            color: #555;
+            font-size: 17px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Photos */
+        .photo-container {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: 0.5s ease;
+        }
 
         .photo-container.show {
-
             opacity: 1;
-
             visibility: visible;
         }
 
-
-        /* =========================================
-           PHOTO CARD
-        ========================================= */
-
         .photo {
-
             position: absolute;
 
+            width: 135px;
+            height: 165px;
+
             background: white;
-
             padding: 7px;
+            padding-bottom: 18px;
 
-            border-radius: 12px;
+            border-radius: 8px;
 
             box-shadow:
-                0 12px 30px
-                rgba(0, 0, 0, 0.20);
-
-            overflow: hidden;
+                0 8px 20px rgba(0, 0, 0, 0.18);
 
             opacity: 0;
-
             transform: scale(0.5);
 
             transition:
-                opacity 0.8s ease,
-                transform 0.8s ease;
+                opacity 0.6s ease,
+                transform 0.6s ease;
         }
-
-
-        .photo img {
-
-            width: 100%;
-
-            height: 100%;
-
-            display: block;
-
-            object-fit: cover;
-
-            border-radius: 7px;
-        }
-
-
-        /* =========================================
-           PHOTO 1
-           TOP LEFT
-        ========================================= */
-
-        .photo1 {
-
-            width: 145px;
-            height: 175px;
-
-            left: 7%;
-
-            top: 9%;
-
-            transform:
-                rotate(-8deg)
-                scale(0.5);
-        }
-
-
-        /* =========================================
-           PHOTO 2
-           MIDDLE LEFT
-        ========================================= */
-
-        .photo2 {
-
-            width: 130px;
-            height: 160px;
-
-            left: 3%;
-
-            top: 40%;
-
-            transform:
-                rotate(6deg)
-                scale(0.5);
-        }
-
-
-        /* =========================================
-           PHOTO 3
-           BOTTOM LEFT
-        ========================================= */
-
-        .photo3 {
-
-            width: 140px;
-            height: 170px;
-
-            left: 10%;
-
-            bottom: 7%;
-
-            transform:
-                rotate(-5deg)
-                scale(0.5);
-        }
-
-
-        /* =========================================
-           PHOTO 4
-           TOP RIGHT
-        ========================================= */
-
-        .photo4 {
-
-            width: 145px;
-            height: 175px;
-
-            right: 7%;
-
-            top: 9%;
-
-            transform:
-                rotate(8deg)
-                scale(0.5);
-        }
-
-
-        /* =========================================
-           PHOTO 5
-           MIDDLE RIGHT
-        ========================================= */
-
-        .photo5 {
-
-            width: 130px;
-            height: 160px;
-
-            right: 3%;
-
-            top: 40%;
-
-            transform:
-                rotate(-6deg)
-                scale(0.5);
-        }
-
-
-        /* =========================================
-           PHOTO 6
-           BOTTOM RIGHT
-        ========================================= */
-
-        .photo6 {
-
-            width: 140px;
-            height: 170px;
-
-            right: 10%;
-
-            bottom: 7%;
-
-            transform:
-                rotate(5deg)
-                scale(0.5);
-        }
-
-
-        /* =========================================
-           PHOTO 7
-           TOP CENTER
-        ========================================= */
-
-        .photo7 {
-
-            width: 125px;
-            height: 150px;
-
-            left: 50%;
-
-            top: 2%;
-
-            transform:
-                translateX(-50%)
-                rotate(-2deg)
-                scale(0.5);
-        }
-
-
-        /* =========================================
-           PHOTO SHOW ANIMATION
-        ========================================= */
 
         .photo-container.show .photo {
-
             opacity: 1;
+            transform: scale(1);
         }
 
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Photo positions */
+
+        .photo1 {
+            top: 8%;
+            left: 8%;
+            transform: rotate(-8deg) scale(0.5);
+        }
+
+        .photo2 {
+            top: 42%;
+            left: 5%;
+            transform: rotate(6deg) scale(0.5);
+        }
+
+        .photo3 {
+            bottom: 7%;
+            left: 10%;
+            transform: rotate(-5deg) scale(0.5);
+        }
+
+        .photo4 {
+            top: 8%;
+            right: 8%;
+            transform: rotate(7deg) scale(0.5);
+        }
+
+        .photo5 {
+            top: 42%;
+            right: 5%;
+            transform: rotate(-6deg) scale(0.5);
+        }
+
+        .photo6 {
+            bottom: 7%;
+            right: 10%;
+            transform: rotate(5deg) scale(0.5);
+        }
+
+        .photo7 {
+            top: 3%;
+            left: 50%;
+            margin-left: -67px;
+            transform: rotate(-3deg) scale(0.5);
+        }
+
+        /* Keep rotations after appearing */
 
         .photo-container.show .photo1 {
-
-            transform:
-                rotate(-8deg)
-                scale(1);
-
+            transform: rotate(-8deg) scale(1);
             transition-delay: 0.1s;
         }
 
-
         .photo-container.show .photo2 {
-
-            transform:
-                rotate(6deg)
-                scale(1);
-
+            transform: rotate(6deg) scale(1);
             transition-delay: 0.25s;
         }
 
-
         .photo-container.show .photo3 {
-
-            transform:
-                rotate(-5deg)
-                scale(1);
-
+            transform: rotate(-5deg) scale(1);
             transition-delay: 0.4s;
         }
 
-
         .photo-container.show .photo4 {
-
-            transform:
-                rotate(8deg)
-                scale(1);
-
+            transform: rotate(7deg) scale(1);
             transition-delay: 0.55s;
         }
 
-
         .photo-container.show .photo5 {
-
-            transform:
-                rotate(-6deg)
-                scale(1);
-
+            transform: rotate(-6deg) scale(1);
             transition-delay: 0.7s;
         }
 
-
         .photo-container.show .photo6 {
-
-            transform:
-                rotate(5deg)
-                scale(1);
-
+            transform: rotate(5deg) scale(1);
             transition-delay: 0.85s;
         }
 
-
         .photo-container.show .photo7 {
-
-            transform:
-                translateX(-50%)
-                rotate(-2deg)
-                scale(1);
-
+            transform: rotate(-3deg) scale(1);
             transition-delay: 1s;
         }
 
+        /* Floating hearts */
 
-        /* =========================================
-           MAIN CARD
-        ========================================= */
+        .heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
 
-        .card {
+            font-size: 22px;
 
-            width: 90%;
-
-            max-width: 520px;
-
-            padding: 45px 30px;
-
-            text-align: center;
-
-            background:
-                rgba(255,255,255,0.95);
-
-            border-radius: 30px;
-
-            box-shadow:
-                0 15px 50px
-                rgba(0,0,0,0.15);
-
-            position: relative;
-
-            z-index: 20;
+            animation: floatHeart 2.5s linear forwards;
         }
 
+        @keyframes floatHeart {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
 
-        /* =========================================
-           MAIN HEART
-        ========================================= */
-
-        .main-heart {
-
-            font-size: 65px;
-
-            animation:
-                heartbeat
-                1.2s
-                infinite;
+            100% {
+                opacity: 0;
+                transform: translateY(-180px) scale(1.8);
+            }
         }
-
 
         @keyframes heartbeat {
-
-            0% {
+            0%, 100% {
                 transform: scale(1);
             }
 
             50% {
-                transform: scale(1.2);
-            }
-
-            100% {
-                transform: scale(1);
+                transform: scale(1.15);
             }
         }
 
-
-        /* =========================================
-           QUESTION
-        ========================================= */
-
-        h1 {
-
-            color: #ff4081;
-
-            font-size: 38px;
-
-            margin: 15px 0;
-        }
-
-
-        p {
-
-            color: #777;
-
-            font-size: 17px;
-
-            margin-bottom: 35px;
-        }
-
-
-        /* =========================================
-           BUTTONS
-        ========================================= */
-
-        .buttons {
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            gap: 25px;
-
-            min-height: 60px;
-        }
-
-
-        button {
-
-            border: none;
-
-            padding: 15px 35px;
-
-            border-radius: 30px;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-
-        /* =========================================
-           YES
-        ========================================= */
-
-        #yesBtn {
-
-            background: #ff4081;
-
-            color: white;
-
-            box-shadow:
-                0 5px 15px
-                rgba(255,64,129,0.4);
-
-            transition:
-                transform 0.2s;
-        }
-
-
-        #yesBtn:hover {
-
-            transform: scale(1.08);
-        }
-
-
-        /* =========================================
-           NO
-        ========================================= */
-
-        #noBtn {
-
-            background: #dddddd;
-
-            color: #555;
-
-            z-index: 100;
-
-            white-space: nowrap;
-
-            transition:
-                left 0.15s ease,
-                top 0.15s ease;
-        }
-
-
-        /* =========================================
-           LOVE MESSAGE
-        ========================================= */
-
-        #loveMessage {
-
-            display: none;
-
-            margin-top: 30px;
-
-            color: #ff4081;
-
-            font-size: 26px;
-
-            font-weight: bold;
-        }
-
-
-        /* =========================================
-           FLOATING HEARTS
-        ========================================= */
-
-        .heart {
-
-            position: fixed;
-
-            pointer-events: none;
-
-            z-index: 999;
-
-            font-size: 25px;
-
-            animation:
-                floatHeart
-                2s
-                ease-out
-                forwards;
-        }
-
-
-        @keyframes floatHeart {
-
-            0% {
-
-                transform:
-                    translateY(0)
-                    scale(0.5);
-
-                opacity: 1;
+        /* Mobile */
+        @media (max-width: 700px) {
+
+            .card {
+                width: 300px;
+                padding: 30px 20px;
             }
 
-            100% {
-
-                transform:
-                    translateY(-180px)
-                    scale(1.5);
-
-                opacity: 0;
+            h1 {
+                font-size: 27px;
             }
-        }
 
-
-        /* =========================================
-           TABLET
-        ========================================= */
-
-        @media (max-width: 1000px) {
+            .photo {
+                width: 95px;
+                height: 120px;
+                padding: 5px;
+                padding-bottom: 13px;
+            }
 
             .photo1 {
+                top: 7%;
                 left: 2%;
             }
 
             .photo2 {
+                top: 39%;
                 left: 1%;
             }
 
             .photo3 {
-                left: 4%;
+                bottom: 5%;
+                left: 3%;
             }
 
             .photo4 {
+                top: 7%;
                 right: 2%;
             }
 
             .photo5 {
+                top: 39%;
                 right: 1%;
             }
 
             .photo6 {
-                right: 4%;
+                bottom: 5%;
+                right: 3%;
             }
-
-        }
-
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 700px) {
-
-            h1 {
-                font-size: 30px;
-            }
-
-
-            .card {
-
-                width: 78%;
-
-                max-width: 380px;
-
-                padding: 32px 18px;
-            }
-
-
-            .main-heart {
-
-                font-size: 50px;
-            }
-
-
-            button {
-
-                padding: 12px 23px;
-
-                font-size: 15px;
-            }
-
-
-            /* smaller photos */
-
-            .photo1,
-            .photo4 {
-
-                width: 82px;
-
-                height: 105px;
-            }
-
-
-            .photo2,
-            .photo5 {
-
-                width: 75px;
-
-                height: 95px;
-            }
-
-
-            .photo3,
-            .photo6 {
-
-                width: 82px;
-
-                height: 105px;
-            }
-
 
             .photo7 {
-
-                width: 75px;
-
-                height: 92px;
-
-                top: 1%;
+                top: 2%;
+                left: 50%;
+                margin-left: -47px;
             }
 
+            .love-message {
+                width: 70%;
+                padding: 20px;
+            }
+
+            .love-message h2 {
+                font-size: 23px;
+            }
+
+            .love-message p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .photo {
+                width: 78px;
+                height: 100px;
+            }
+
+            .photo7 {
+                margin-left: -39px;
+            }
 
             .photo1 {
                 left: 1%;
-                top: 16%;
             }
-
-
-            .photo2 {
-                left: 0%;
-                top: 43%;
-            }
-
 
             .photo3 {
-                left: 5%;
-                bottom: 5%;
+                left: 2%;
             }
-
 
             .photo4 {
                 right: 1%;
-                top: 16%;
             }
-
-
-            .photo5 {
-                right: 0%;
-                top: 43%;
-            }
-
 
             .photo6 {
-                right: 5%;
-                bottom: 5%;
+                right: 2%;
             }
-
         }
-
-
-        /* =========================================
-           VERY SMALL PHONES
-        ========================================= */
-
-        @media (max-width: 430px) {
-
-            .card {
-
-                width: 74%;
-
-                padding: 28px 12px;
-            }
-
-
-            h1 {
-
-                font-size: 25px;
-            }
-
-
-            p {
-
-                font-size: 14px;
-
-                margin-bottom: 25px;
-            }
-
-
-            .main-heart {
-
-                font-size: 45px;
-            }
-
-
-            button {
-
-                padding: 10px 18px;
-
-                font-size: 14px;
-            }
-
-
-            .photo1,
-            .photo4 {
-
-                width: 68px;
-
-                height: 88px;
-            }
-
-
-            .photo2,
-            .photo5 {
-
-                width: 63px;
-
-                height: 82px;
-            }
-
-
-            .photo3,
-            .photo6 {
-
-                width: 68px;
-
-                height: 88px;
-            }
-
-
-            .photo7 {
-
-                width: 65px;
-
-                height: 80px;
-            }
-
-        }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- QUESTION -->
+    <div class="card" id="questionCard">
 
-    <!-- =========================================
-         PHOTO GALLERY
-    ========================================== -->
+        <div class="main-heart">❤️</div>
 
-    <div
-        class="photo-container"
-        id="photoContainer"
-    >
+        <h1>Do you love me?</h1>
 
-
-        <!-- IMAGE 1 -->
-
-        <div class="photo photo1">
-
-            <img
-                src="image1.jpg"
-                alt="Photo 1"
-            >
-
-        </div>
-
-
-        <!-- IMAGE 2 -->
-
-        <div class="photo photo2">
-
-            <img
-                src="image2.jpg"
-                alt="Photo 2"
-            >
-
-        </div>
-
-
-        <!-- IMAGE 3 -->
-
-        <div class="photo photo3">
-
-            <img
-                src="image3.jpg"
-                alt="Photo 3"
-            >
-
-        </div>
-
-
-        <!-- IMAGE 4 -->
-
-        <div class="photo photo4">
-
-            <img
-                src="image4.jpg"
-                alt="Photo 4"
-            >
-
-        </div>
-
-
-        <!-- IMAGE 5 -->
-
-        <div class="photo photo5">
-
-            <img
-                src="image5.jpg"
-                alt="Photo 5"
-            >
-
-        </div>
-
-
-        <!-- IMAGE 6 -->
-
-        <div class="photo photo6">
-
-            <img
-                src="image6.jpg"
-                alt="Photo 6"
-            >
-
-        </div>
-
-
-        <!-- IMAGE 7 -->
-
-        <div class="photo photo7">
-
-            <img
-                src="image7.jpg"
-                alt="Photo 7"
-            >
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =========================================
-         MAIN CARD
-    ========================================== -->
-
-    <div class="card">
-
-
-        <div class="main-heart">
-
-            ❤️
-
-        </div>
-
-
-        <h1>
-
-            Do you love me?
-
-        </h1>
-
-
-        <p>
-
+        <div class="question">
             Please choose your answer carefully... 😌
-
-        </p>
-
+        </div>
 
         <div class="buttons">
-
-
-            <button id="yesBtn">
-
-                YES ❤️
-
-            </button>
-
-
-            <button id="noBtn">
-
-                NO 😏
-
-            </button>
-
-
+            <button id="yesBtn">YES ❤️</button>
+            <button id="noBtn">NO 😢</button>
         </div>
-
-
-        <div id="loveMessage">
-
-            I KNEW IT!!! 😍❤️
-
-            <br>
-
-            <span
-                style="
-                    font-size:17px;
-                    color:#888;
-                "
-            >
-
-                You can't escape me now 😌💕
-
-            </span>
-
-        </div>
-
 
     </div>
 
+
+    <!-- PHOTOS -->
+    <div class="photo-container" id="photoContainer">
+
+        <div class="photo photo1">
+            <img src="image1.jpg" alt="Photo 1">
+        </div>
+
+        <div class="photo photo2">
+            <img src="image2.jpg" alt="Photo 2">
+        </div>
+
+        <div class="photo photo3">
+            <img src="image3.jpg" alt="Photo 3">
+        </div>
+
+        <div class="photo photo4">
+            <img src="image4.jpg" alt="Photo 4">
+        </div>
+
+        <div class="photo photo5">
+            <img src="image5.jpg" alt="Photo 5">
+        </div>
+
+        <div class="photo photo6">
+            <img src="image6.jpg" alt="Photo 6">
+        </div>
+
+        <div class="photo photo7">
+            <img src="image7.jpg" alt="Photo 7">
+        </div>
+
+    </div>
+
+
+    <!-- LOVE MESSAGE -->
+    <div class="love-message" id="loveMessage">
+
+        <h2>I knew it! ❤️</h2>
+
+        <p>
+            I love you too! 🥰<br>
+            You are the most special person in my life.
+            <br><br>
+            ❤️ Forever & Always ❤️
+        </p>
+
+    </div>
 
 
     <script>
 
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
 
-        /* =========================================
-           ELEMENTS
-        ========================================= */
-
-        const yesButton =
-            document.getElementById("yesBtn");
-
-
-        const noButton =
-            document.getElementById("noBtn");
+        const questionCard = document.getElementById("questionCard");
+        const loveMessage = document.getElementById("loveMessage");
+        const photoContainer = document.getElementById("photoContainer");
 
 
-        const loveMessage =
-            document.getElementById("loveMessage");
+        /* =========================
+           YES BUTTON
+        ========================= */
 
+        yesBtn.addEventListener("click", function () {
 
-        const photoContainer =
-            document.getElementById("photoContainer");
+            // Hide the question completely
+            questionCard.classList.add("hide");
 
+            // Show photos
+            photoContainer.classList.add("show");
 
-        let escapeCount = 0;
+            // Show love message
+            loveMessage.classList.add("show");
 
-        let lastMove = 0;
+            // Create celebration hearts
+            for (let i = 0; i < 70; i++) {
 
-        let pageStarted = false;
-
-
-        /* =========================================
-           WAIT AFTER PAGE LOAD
-        ========================================= */
-
-        setTimeout(function() {
-
-            pageStarted = true;
-
-        }, 1000);
-
-
-        /* =========================================
-           NO BUTTON DETECTION
-        ========================================= */
-
-        document.addEventListener(
-            "mousemove",
-            function(event) {
-
-                if (!pageStarted) {
-
-                    return;
-
-                }
-
-
-                const rect =
-                    noButton.getBoundingClientRect();
-
-
-                const centerX =
-                    rect.left +
-                    rect.width / 2;
-
-
-                const centerY =
-                    rect.top +
-                    rect.height / 2;
-
-
-                const dx =
-                    centerX -
-                    event.clientX;
-
-
-                const dy =
-                    centerY -
-                    event.clientY;
-
-
-                const distance =
-                    Math.sqrt(
-                        dx * dx +
-                        dy * dy
-                    );
-
-
-                if (distance < 130) {
-
-                    const now =
-                        Date.now();
-
-
-                    if (
-                        now - lastMove < 180
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    lastMove = now;
-
-
-                    moveNoButton(
-                        event.clientX,
-                        event.clientY
-                    );
-
-                }
+                setTimeout(function () {
+                    createHeart();
+                }, i * 50);
 
             }
-        );
+
+        });
 
 
-        /* =========================================
-           MOVE NO BUTTON
-        ========================================= */
+        /* =========================
+           NO BUTTON
+        ========================= */
 
-        function moveNoButton(
-            cursorX,
-            cursorY
-        ) {
+        let noMessages = [
+            "NO 😢",
+            "Are you sure? 😭",
+            "Really? 🥺",
+            "Think again! 😭",
+            "Please? 🥹",
+            "Wrong button! 😂",
+            "Try YES ❤️"
+        ];
 
-            escapeCount++;
-
-
-            const rect =
-                noButton.getBoundingClientRect();
-
-
-            const width =
-                rect.width;
+        let noCount = 0;
 
 
-            const height =
-                rect.height;
+        document.addEventListener("mousemove", function (event) {
 
-
-            let dx =
-                (rect.left + width / 2)
-                - cursorX;
-
-
-            let dy =
-                (rect.top + height / 2)
-                - cursorY;
-
-
-            const distance =
-                Math.sqrt(
-                    dx * dx +
-                    dy * dy
-                );
-
-
-            if (distance > 0) {
-
-                dx /= distance;
-
-                dy /= distance;
-
+            if (questionCard.classList.contains("hide")) {
+                return;
             }
 
+            const rect = noBtn.getBoundingClientRect();
 
-            const escapeDistance =
-                Math.min(
-                    170 +
-                    escapeCount * 10,
-                    350
-                );
+            const buttonX = rect.left + rect.width / 2;
+            const buttonY = rect.top + rect.height / 2;
 
-
-            let newX =
-                rect.left +
-                dx * escapeDistance;
-
-
-            let newY =
-                rect.top +
-                dy * escapeDistance;
-
-
-            const maxX =
-                window.innerWidth -
-                width -
-                10;
-
-
-            const maxY =
-                window.innerHeight -
-                height -
-                10;
-
-
-            newX =
-                Math.max(
-                    10,
-                    Math.min(
-                        newX,
-                        maxX
-                    )
-                );
-
-
-            newY =
-                Math.max(
-                    10,
-                    Math.min(
-                        newY,
-                        maxY
-                    )
-                );
-
-
-            noButton.style.position =
-                "fixed";
-
-
-            noButton.style.left =
-                newX + "px";
-
-
-            noButton.style.top =
-                newY + "px";
-
-
-            const messages = [
-
-                "NO 😏",
-
-                "Are you sure? 🤨",
-
-                "Really? 😳",
-
-                "Nice try! 😂",
-
-                "Catch me! 😈",
-
-                "Too slow! 🏃",
-
-                "Nope! 😜",
-
-                "Never! 😂"
-
-            ];
-
-
-            const index =
-                Math.min(
-                    escapeCount,
-                    messages.length - 1
-                );
-
-
-            noButton.innerText =
-                messages[index];
-
-
-            const newScale =
-                Math.min(
-                    1 +
-                    escapeCount * 0.03,
-                    1.35
-                );
-
-
-            yesButton.style.transform =
-                `scale(${newScale})`;
-
-
-            createHeart(
-                cursorX,
-                cursorY
+            const distance = Math.sqrt(
+                Math.pow(event.clientX - buttonX, 2) +
+                Math.pow(event.clientY - buttonY, 2)
             );
 
-        }
 
+            if (distance < 120) {
 
-        /* =========================================
-           NO CLICK
-        ========================================= */
+                const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+                const maxY = window.innerHeight - noBtn.offsetHeight - 20;
 
-        noButton.addEventListener(
-            "click",
-            function(event) {
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
 
-                event.preventDefault();
+                noBtn.style.position = "fixed";
+                noBtn.style.left = randomX + "px";
+                noBtn.style.top = randomY + "px";
 
-                moveNoButton(
-                    event.clientX,
-                    event.clientY
-                );
+                noCount++;
 
-            }
-        );
-
-
-        /* =========================================
-           YES CLICK
-        ========================================= */
-
-        yesButton.addEventListener(
-            "click",
-            function() {
-
-                /* Show message */
-
-                loveMessage.style.display =
-                    "block";
-
-
-                /* Hide NO */
-
-                noButton.style.display =
-                    "none";
-
-
-                /* Change YES */
-
-                yesButton.innerText =
-                    "YES ❤️❤️❤️";
-
-
-                yesButton.style.transform =
-                    "scale(1.2)";
-
-
-                /* Show photos */
-
-                photoContainer.classList.add(
-                    "show"
-                );
-
-
-                /* Celebration */
-
-                for (
-                    let i = 0;
-                    i < 70;
-                    i++
-                ) {
-
-                    setTimeout(
-                        function() {
-
-                            createHeart(
-
-                                Math.random() *
-                                window.innerWidth,
-
-                                Math.random() *
-                                window.innerHeight
-
-                            );
-
-                        },
-                        i * 60
-                    );
-
+                if (noCount < noMessages.length) {
+                    noBtn.innerText = noMessages[noCount];
                 }
 
-            }
-        );
-
-
-        /* =========================================
-           CLICK ANYWHERE = HEART
-        ========================================= */
-
-        document.addEventListener(
-            "click",
-            function(event) {
-
-                createHeart(
-                    event.clientX,
-                    event.clientY
-                );
+                // Make YES button bigger
+                yesBtn.style.transform =
+                    "scale(" + (1 + noCount * 0.08) + ")";
 
             }
-        );
+
+        });
 
 
-        /* =========================================
-           CREATE HEART
-        ========================================= */
+        /* =========================
+           CREATE FLOATING HEART
+        ========================= */
 
-        function createHeart(
-            x,
-            y
-        ) {
+        function createHeart(x, y) {
 
-            const heart =
-                document.createElement(
-                    "div"
-                );
+            const heart = document.createElement("div");
 
-
-            heart.className =
-                "heart";
-
+            heart.classList.add("heart");
 
             const hearts = [
-
                 "❤️",
                 "💕",
                 "💗",
                 "💖",
-                "💓",
                 "💘",
-                "💝"
-
+                "💓",
+                "💞"
             ];
 
-
-            heart.innerHTML =
-                hearts[
-                    Math.floor(
-                        Math.random() *
-                        hearts.length
-                    )
-                ];
+            heart.innerText =
+                hearts[Math.floor(Math.random() * hearts.length)];
 
 
-            heart.style.left =
-                x + "px";
+            if (x === undefined) {
+                x = Math.random() * window.innerWidth;
+            }
 
+            if (y === undefined) {
+                y = window.innerHeight;
+            }
 
-            heart.style.top =
-                y + "px";
-
+            heart.style.left = x + "px";
+            heart.style.top = y + "px";
 
             heart.style.fontSize =
-                (
-                    18 +
-                    Math.random() * 25
-                ) + "px";
+                (15 + Math.random() * 25) + "px";
 
 
-            document.body.appendChild(
-                heart
-            );
+            document.body.appendChild(heart);
 
 
-            setTimeout(
-                function() {
-
-                    heart.remove();
-
-                },
-                2000
-            );
+            setTimeout(function () {
+                heart.remove();
+            }, 3000);
 
         }
+
+
+        /* =========================
+           CLICK ANYWHERE = HEART
+        ========================= */
+
+        document.addEventListener("click", function (event) {
+
+            // Don't create extra hearts when clicking buttons
+            if (
+                event.target === yesBtn ||
+                event.target === noBtn
+            ) {
+                return;
+            }
+
+            createHeart(event.clientX, event.clientY);
+
+        });
+
 
     </script>
 
 </body>
-
 </html>
