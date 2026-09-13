@@ -1,639 +1,1251 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Do You Love Me? ❤️</title>
+    <meta charset="UTF-8">
 
-<style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-* {
-    box-sizing: border-box;
-}
+    <title>One Important Question ❤️</title>
 
-html,
-body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-}
 
-body {
-    font-family: Arial, sans-serif;
-    overflow: hidden;
+    <style>
 
-    background:
-        linear-gradient(
-            135deg,
-            #ffd6e7,
-            #fff0f6,
-            #ffd1e3
-        );
-}
+        * {
+            box-sizing: border-box;
+        }
 
 
-/* =================================
-   QUESTION SCREEN
-================================= */
+        /* =========================================
+           BODY
+        ========================================= */
 
-#questionScreen {
+        body {
 
-    position: fixed;
+            margin: 0;
 
-    inset: 0;
+            width: 100%;
+            height: 100vh;
 
-    display: flex;
+            overflow: hidden;
 
-    justify-content: center;
+            font-family: Arial, sans-serif;
 
-    align-items: center;
+            display: flex;
 
-    z-index: 1000;
-}
+            justify-content: center;
 
+            align-items: center;
 
-.questionCard {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffd6e7,
+                    #fff0f5
+                );
 
-    width: 430px;
+            position: relative;
 
-    max-width: 90%;
+        }
 
-    padding: 45px 30px;
 
-    text-align: center;
 
-    background: white;
+        /* =========================================
+           PHOTO AREA
+        ========================================= */
 
-    border-radius: 30px;
+        .photo-container {
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.18);
-}
+            position: fixed;
 
+            inset: 0;
 
-.bigHeart {
+            width: 100%;
+            height: 100%;
 
-    font-size: 75px;
+            pointer-events: none;
 
-    animation: heartbeat 1.2s infinite;
-}
+            z-index: 3;
 
+            opacity: 0;
 
-.questionCard h1 {
+            visibility: hidden;
 
-    color: #ff4f81;
+            transition:
+                opacity 1s ease;
 
-    font-size: 38px;
+        }
 
-    margin: 15px 0 10px;
-}
 
+        /* Show photos after YES */
 
-.questionCard p {
+        .photo-container.show {
 
-    color: #777;
+            opacity: 1;
 
-    margin-bottom: 30px;
-}
+            visibility: visible;
 
+        }
 
-/* =================================
-   BUTTONS
-================================= */
 
-.buttons {
 
-    display: flex;
+        /* =========================================
+           INDIVIDUAL PHOTO
+        ========================================= */
 
-    justify-content: center;
+        .photo {
 
-    gap: 20px;
-}
+            position: absolute;
 
+            width: 150px;
 
-button {
+            height: 180px;
 
-    border: none;
+            padding: 8px 8px 28px 8px;
 
-    padding: 15px 30px;
+            background: white;
 
-    border-radius: 50px;
+            border-radius: 5px;
 
-    font-size: 18px;
+            box-shadow:
+                0 10px 25px
+                rgba(0,0,0,0.20);
 
-    font-weight: bold;
+            object-fit: cover;
 
-    cursor: pointer;
-}
+            opacity: 0;
 
+            transform:
+                scale(0.3)
+                rotate(0deg);
 
-#yesBtn {
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
 
-    background: #ff4f81;
+        }
 
-    color: white;
 
-    box-shadow:
-        0 8px 20px rgba(255,79,129,0.3);
-}
+        .photo img {
 
+            width: 100%;
 
-#noBtn {
+            height: 100%;
 
-    background: #eeeeee;
+            object-fit: cover;
 
-    color: #555;
-}
+            display: block;
 
+        }
 
-/* =================================
-   MEMORY SCREEN
-================================= */
 
-#memoryScreen {
+        /* =========================================
+           PHOTO POSITIONS
+        ========================================= */
 
-    display: none;
+        .photo1 {
 
-    position: fixed;
+            left: 5%;
 
-    inset: 0;
+            top: 8%;
 
-    width: 100vw;
+            transform:
+                scale(0.3)
+                rotate(-12deg);
 
-    height: 100vh;
+        }
 
-    overflow: hidden;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #fff5f9,
-            #ffd9e8
-        );
-}
+        .photo2 {
 
+            left: 3%;
 
-/* =================================
-   CENTER MESSAGE
-================================= */
+            top: 56%;
 
-.message {
+            transform:
+                scale(0.3)
+                rotate(9deg);
 
-    position: absolute;
+        }
 
-    top: 50%;
 
-    left: 50%;
+        .photo3 {
 
-    transform:
-        translate(-50%, -50%);
+            left: 20%;
 
-    width: 420px;
+            top: 75%;
 
-    max-width: 75%;
+            transform:
+                scale(0.3)
+                rotate(-7deg);
 
-    padding: 30px;
+        }
 
-    text-align: center;
 
-    background:
-        rgba(255,255,255,0.95);
+        .photo4 {
 
-    border-radius: 30px;
+            right: 5%;
 
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.15);
+            top: 8%;
 
-    z-index: 20;
+            transform:
+                scale(0.3)
+                rotate(11deg);
 
-    animation:
-        appear 1s ease;
-}
+        }
 
 
-.message h1 {
+        .photo5 {
 
-    color: #ff4f81;
+            right: 3%;
 
-    font-size: 34px;
+            top: 55%;
 
-    margin: 0 0 12px;
-}
+            transform:
+                scale(0.3)
+                rotate(-9deg);
 
+        }
 
-.message p {
 
-    color: #777;
+        .photo6 {
 
-    line-height: 1.6;
+            right: 20%;
 
-    margin: 0;
-}
+            top: 75%;
 
+            transform:
+                scale(0.3)
+                rotate(7deg);
 
-/* =================================
-   PHOTOS
-================================= */
+        }
 
-.memoryPhoto {
 
-    position: absolute;
+        .photo7 {
 
-    width: 180px;
+            left: 50%;
 
-    height: 220px;
+            top: 2%;
 
-    padding: 8px;
+            transform:
+                translateX(-50%)
+                scale(0.3)
+                rotate(-3deg);
 
-    background: white;
+        }
 
-    border-radius: 15px;
 
-    object-fit: cover;
 
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.25);
+        /* =========================================
+           PHOTO ANIMATION
+        ========================================= */
 
-    opacity: 0;
+        .photo-container.show .photo {
 
-    animation:
-        photoAppear 1s ease forwards;
-}
+            opacity: 1;
 
+        }
 
-/* =================================
-   PHOTO POSITIONS
-================================= */
 
-.p1 {
-    left: 4%;
-    top: 6%;
-    transform: rotate(-8deg);
-}
+        .photo-container.show .photo1 {
 
-.p2 {
-    left: 5%;
-    bottom: 6%;
-    transform: rotate(7deg);
-}
+            transform:
+                scale(1)
+                rotate(-12deg);
 
-.p3 {
-    left: 25%;
-    top: 3%;
-    transform: rotate(5deg);
-}
+            transition-delay: 0.1s;
 
-.p4 {
-    right: 4%;
-    top: 6%;
-    transform: rotate(8deg);
-}
+        }
 
-.p5 {
-    right: 5%;
-    bottom: 6%;
-    transform: rotate(-7deg);
-}
 
-.p6 {
-    right: 25%;
-    bottom: 3%;
-    transform: rotate(-5deg);
-}
+        .photo-container.show .photo2 {
 
-.p7 {
-    left: 50%;
-    bottom: 1%;
-    transform:
-        translateX(-50%)
-        rotate(3deg);
-}
+            transform:
+                scale(1)
+                rotate(9deg);
 
+            transition-delay: 0.25s;
 
-/* =================================
-   PHOTO ANIMATION
-================================= */
+        }
 
-@keyframes photoAppear {
 
-    0% {
+        .photo-container.show .photo3 {
 
-        opacity: 0;
+            transform:
+                scale(1)
+                rotate(-7deg);
 
-        transform:
-            scale(0.2)
-            rotate(0deg);
-    }
+            transition-delay: 0.4s;
 
-    70% {
+        }
 
-        opacity: 1;
 
-        transform:
-            scale(1.08)
-            rotate(0deg);
-    }
+        .photo-container.show .photo4 {
 
-    100% {
+            transform:
+                scale(1)
+                rotate(11deg);
 
-        opacity: 1;
-    }
-}
+            transition-delay: 0.55s;
 
+        }
 
-/* =================================
-   HEARTS
-================================= */
 
-.heart {
+        .photo-container.show .photo5 {
 
-    position: fixed;
+            transform:
+                scale(1)
+                rotate(-9deg);
 
-    z-index: 2000;
+            transition-delay: 0.7s;
 
-    pointer-events: none;
+        }
 
-    animation:
-        heartFloat 3s ease-out forwards;
-}
 
+        .photo-container.show .photo6 {
 
-@keyframes heartFloat {
+            transform:
+                scale(1)
+                rotate(7deg);
 
-    0% {
+            transition-delay: 0.85s;
 
-        opacity: 1;
+        }
 
-        transform:
-            translateY(0)
-            scale(0.5);
-    }
 
-    100% {
+        .photo-container.show .photo7 {
 
-        opacity: 0;
+            transform:
+                translateX(-50%)
+                scale(1)
+                rotate(-3deg);
 
-        transform:
-            translateY(-400px)
-            scale(1.5)
-            rotate(30deg);
-    }
-}
+            transition-delay: 1s;
 
+        }
 
-/* =================================
-   HEARTBEAT
-================================= */
 
-@keyframes heartbeat {
 
-    0%,
-    100% {
-        transform: scale(1);
-    }
+        /* =========================================
+           MAIN CARD
+        ========================================= */
 
-    50% {
-        transform: scale(1.18);
-    }
-}
+        .card {
 
+            width: 90%;
 
-@keyframes appear {
+            max-width: 520px;
 
-    from {
+            padding: 45px 30px;
 
-        opacity: 0;
+            text-align: center;
 
-        transform:
-            translate(-50%, -50%)
-            scale(0.7);
-    }
+            background:
+                rgba(255,255,255,0.94);
 
-    to {
+            border-radius: 30px;
 
-        opacity: 1;
+            box-shadow:
+                0 15px 50px
+                rgba(0,0,0,0.15);
 
-        transform:
-            translate(-50%, -50%)
-            scale(1);
-    }
-}
+            position: relative;
 
+            z-index: 10;
 
-/* =================================
-   MOBILE
-================================= */
+        }
 
-@media (max-width: 900px) {
 
-    .memoryPhoto {
 
-        width: 120px;
+        /* =========================================
+           HEART
+        ========================================= */
 
-        height: 150px;
-    }
+        .main-heart {
 
-}
+            font-size: 65px;
 
+            animation:
+                heartbeat
+                1.2s
+                infinite;
 
-@media (max-width: 600px) {
+        }
 
-    .questionCard h1 {
 
-        font-size: 30px;
-    }
+        @keyframes heartbeat {
 
-    .bigHeart {
+            0% {
 
-        font-size: 60px;
-    }
+                transform: scale(1);
 
-    .memoryPhoto {
+            }
 
-        width: 75px;
+            50% {
 
-        height: 100px;
-    }
+                transform: scale(1.2);
 
-    .p3,
-    .p6,
-    .p7 {
+            }
 
-        display: none;
-    }
+            100% {
 
-    .message {
+                transform: scale(1);
 
-        width: 300px;
+            }
 
-        padding: 22px;
-    }
+        }
 
-    .message h1 {
 
-        font-size: 25px;
-    }
-}
 
-</style>
+        /* =========================================
+           QUESTION
+        ========================================= */
+
+        h1 {
+
+            color: #ff4081;
+
+            font-size: 38px;
+
+            margin: 15px 0;
+
+        }
+
+
+        p {
+
+            color: #777;
+
+            font-size: 17px;
+
+            margin-bottom: 35px;
+
+        }
+
+
+
+        /* =========================================
+           BUTTON AREA
+        ========================================= */
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 25px;
+
+            min-height: 60px;
+
+        }
+
+
+        button {
+
+            border: none;
+
+            padding: 15px 35px;
+
+            border-radius: 30px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* =========================================
+           YES BUTTON
+        ========================================= */
+
+        #yesBtn {
+
+            background: #ff4081;
+
+            color: white;
+
+            box-shadow:
+                0 5px 15px
+                rgba(255,64,129,0.4);
+
+            transition:
+                transform 0.2s;
+
+        }
+
+
+        #yesBtn:hover {
+
+            transform: scale(1.08);
+
+        }
+
+
+
+        /* =========================================
+           NO BUTTON
+        ========================================= */
+
+        #noBtn {
+
+            background: #dddddd;
+
+            color: #555;
+
+            z-index: 100;
+
+            white-space: nowrap;
+
+            transition:
+                left 0.15s ease,
+                top 0.15s ease;
+
+        }
+
+
+
+        /* =========================================
+           LOVE MESSAGE
+        ========================================= */
+
+        #loveMessage {
+
+            display: none;
+
+            margin-top: 30px;
+
+            color: #ff4081;
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+        }
+
+
+
+        /* =========================================
+           CLICK HEART
+        ========================================= */
+
+        .heart {
+
+            position: fixed;
+
+            pointer-events: none;
+
+            z-index: 999;
+
+            font-size: 25px;
+
+            animation:
+                floatHeart
+                2s
+                ease-out
+                forwards;
+
+        }
+
+
+        @keyframes floatHeart {
+
+            0% {
+
+                transform:
+                    translateY(0)
+                    scale(0.5);
+
+                opacity: 1;
+
+            }
+
+            100% {
+
+                transform:
+                    translateY(-180px)
+                    scale(1.5);
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .photo {
+
+                width: 110px;
+
+                height: 135px;
+
+                padding: 6px 6px 22px 6px;
+
+            }
+
+
+            .photo1 {
+
+                left: 1%;
+
+                top: 5%;
+
+            }
+
+
+            .photo2 {
+
+                left: 1%;
+
+                top: 65%;
+
+            }
+
+
+            .photo3 {
+
+                left: 12%;
+
+                top: 82%;
+
+            }
+
+
+            .photo4 {
+
+                right: 1%;
+
+                top: 5%;
+
+            }
+
+
+            .photo5 {
+
+                right: 1%;
+
+                top: 65%;
+
+            }
+
+
+            .photo6 {
+
+                right: 12%;
+
+                top: 82%;
+
+            }
+
+
+            .photo7 {
+
+                top: 1%;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .card {
+
+                padding: 35px 20px;
+
+                max-width: 390px;
+
+            }
+
+
+            .main-heart {
+
+                font-size: 55px;
+
+            }
+
+
+            button {
+
+                padding: 13px 27px;
+
+                font-size: 16px;
+
+            }
+
+
+            .photo {
+
+                width: 80px;
+
+                height: 100px;
+
+                padding: 4px 4px 16px 4px;
+
+            }
+
+
+            .photo1 {
+
+                left: 0%;
+
+                top: 12%;
+
+            }
+
+
+            .photo2 {
+
+                left: 0%;
+
+                top: 58%;
+
+            }
+
+
+            .photo3 {
+
+                left: 8%;
+
+                top: 82%;
+
+            }
+
+
+            .photo4 {
+
+                right: 0%;
+
+                top: 12%;
+
+            }
+
+
+            .photo5 {
+
+                right: 0%;
+
+                top: 58%;
+
+            }
+
+
+            .photo6 {
+
+                right: 8%;
+
+                top: 82%;
+
+            }
+
+
+            .photo7 {
+
+                top: 1%;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 
 <body>
 
 
-<!-- =================================
-     QUESTION
-================================= -->
+    <!-- =========================================
+         7 PHOTOS
+         HIDDEN UNTIL YES IS CLICKED
+    ========================================== -->
 
-<div id="questionScreen">
+    <div class="photo-container" id="photoContainer">
 
-    <div class="questionCard">
 
-        <div class="bigHeart">
-            ❤️
-        </div>
+        <div class="photo photo1">
 
-        <h1>
-            Do you love me?
-        </h1>
-
-        <p>
-            Be honest... 😌💕
-        </p>
-
-        <div class="buttons">
-
-            <button id="yesBtn">
-                YES ❤️
-            </button>
-
-            <button id="noBtn">
-                NO 😏
-            </button>
+            <img
+                src="image1.jpg"
+                alt="Our photo 1"
+            >
 
         </div>
+
+
+        <div class="photo photo2">
+
+            <img
+                src="image2.jpg"
+                alt="Our photo 2"
+            >
+
+        </div>
+
+
+        <div class="photo photo3">
+
+            <img
+                src="image3.jpg"
+                alt="Our photo 3"
+            >
+
+        </div>
+
+
+        <div class="photo photo4">
+
+            <img
+                src="image4.jpg"
+                alt="Our photo 4"
+            >
+
+        </div>
+
+
+        <div class="photo photo5">
+
+            <img
+                src="image5.jpg"
+                alt="Our photo 5"
+            >
+
+        </div>
+
+
+        <div class="photo photo6">
+
+            <img
+                src="image6.jpg"
+                alt="Our photo 6"
+            >
+
+        </div>
+
+
+        <div class="photo photo7">
+
+            <img
+                src="image7.jpg"
+                alt="Our photo 7"
+            >
+
+        </div>
+
 
     </div>
 
-</div>
 
 
-<!-- =================================
-     EMPTY MEMORY SCREEN
-     
-     IMPORTANT:
-     THERE ARE NO PHOTOS HERE.
-     JAVASCRIPT WILL CREATE THEM
-     ONLY AFTER YES IS CLICKED.
-================================= -->
+    <!-- =========================================
+         MAIN CARD
+    ========================================== -->
 
-<div id="memoryScreen">
-
-</div>
+    <div class="card">
 
 
-<script>
+        <div class="main-heart">
+
+            ❤️
+
+        </div>
 
 
-/* =================================
-   GET ELEMENTS
-================================= */
+        <h1>
 
-const yesBtn =
-    document.getElementById("yesBtn");
+            Do you love me?
 
-const noBtn =
-    document.getElementById("noBtn");
-
-const questionScreen =
-    document.getElementById("questionScreen");
-
-const memoryScreen =
-    document.getElementById("memoryScreen");
+        </h1>
 
 
-let lastMove = 0;
+        <p>
 
-let gameStarted = false;
+            Please choose your answer carefully... 😌
 
-
-/* =================================
-   START NO BUTTON
-================================= */
-
-setTimeout(function() {
-
-    gameStarted = true;
-
-}, 800);
+        </p>
 
 
-/* =================================
-   NO BUTTON ESCAPES
-================================= */
-
-document.addEventListener(
-    "mousemove",
-    function(event) {
-
-        if (!gameStarted) {
-            return;
-        }
+        <div class="buttons">
 
 
-        if (
-            questionScreen.style.display ===
-            "none"
+            <button id="yesBtn">
+
+                YES ❤️
+
+            </button>
+
+
+            <button id="noBtn">
+
+                NO 😏
+
+            </button>
+
+
+        </div>
+
+
+        <div id="loveMessage">
+
+            I KNEW IT!!! 😍❤️
+
+            <br>
+
+            <span
+                style="
+                    font-size:17px;
+                    color:#888;
+                "
+            >
+
+                You can't escape me now 😌💕
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+
+        /* =========================================
+           GET ELEMENTS
+        ========================================= */
+
+        const yesButton =
+            document.getElementById("yesBtn");
+
+
+        const noButton =
+            document.getElementById("noBtn");
+
+
+        const loveMessage =
+            document.getElementById("loveMessage");
+
+
+        const photoContainer =
+            document.getElementById("photoContainer");
+
+
+
+        let escapeCount = 0;
+
+        let lastMove = 0;
+
+        let pageStarted = false;
+
+
+
+        /* =========================================
+           WAIT AFTER PAGE LOAD
+        ========================================= */
+
+        setTimeout(function() {
+
+            pageStarted = true;
+
+        }, 1000);
+
+
+
+        /* =========================================
+           MOUSE DETECTION
+        ========================================= */
+
+        document.addEventListener(
+            "mousemove",
+            function(event) {
+
+
+                if (!pageStarted) {
+
+                    return;
+
+                }
+
+
+                const rect =
+                    noButton.getBoundingClientRect();
+
+
+                const centerX =
+                    rect.left +
+                    rect.width / 2;
+
+
+                const centerY =
+                    rect.top +
+                    rect.height / 2;
+
+
+                const dx =
+                    centerX -
+                    event.clientX;
+
+
+                const dy =
+                    centerY -
+                    event.clientY;
+
+
+                const distance =
+                    Math.sqrt(
+                        dx * dx +
+                        dy * dy
+                    );
+
+
+                if (distance < 130) {
+
+
+                    const now =
+                        Date.now();
+
+
+                    if (
+                        now - lastMove < 180
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    lastMove = now;
+
+
+                    moveNoButton(
+                        event.clientX,
+                        event.clientY
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================
+           MOVE NO BUTTON
+        ========================================= */
+
+        function moveNoButton(
+            cursorX,
+            cursorY
         ) {
-            return;
-        }
 
 
-        const rect =
-            noBtn.getBoundingClientRect();
+            escapeCount++;
 
 
-        const centerX =
-            rect.left +
-            rect.width / 2;
+            const rect =
+                noButton.getBoundingClientRect();
 
 
-        const centerY =
-            rect.top +
-            rect.height / 2;
+            const width =
+                rect.width;
 
 
-        const distance =
-            Math.sqrt(
+            const height =
+                rect.height;
 
-                Math.pow(
-                    event.clientX - centerX,
-                    2
-                )
 
-                +
+            let dx =
+                (rect.left + width / 2)
+                - cursorX;
 
-                Math.pow(
-                    event.clientY - centerY,
-                    2
-                )
 
+            let dy =
+                (rect.top + height / 2)
+                - cursorY;
+
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+
+            if (distance > 0) {
+
+                dx =
+                    dx / distance;
+
+                dy =
+                    dy / distance;
+
+            }
+
+
+            const escapeDistance =
+                Math.min(
+                    170 +
+                    escapeCount * 10,
+                    350
+                );
+
+
+            let newX =
+                rect.left +
+                dx * escapeDistance;
+
+
+            let newY =
+                rect.top +
+                dy * escapeDistance;
+
+
+            const maxX =
+                window.innerWidth -
+                width -
+                10;
+
+
+            const maxY =
+                window.innerHeight -
+                height -
+                10;
+
+
+            newX =
+                Math.max(
+                    10,
+                    Math.min(
+                        newX,
+                        maxX
+                    )
+                );
+
+
+            newY =
+                Math.max(
+                    10,
+                    Math.min(
+                        newY,
+                        maxY
+                    )
+                );
+
+
+            noButton.style.position =
+                "fixed";
+
+
+            noButton.style.left =
+                newX + "px";
+
+
+            noButton.style.top =
+                newY + "px";
+
+
+
+            /* =========================================
+               CHANGE NO TEXT
+            ========================================= */
+
+            const messages = [
+
+                "NO 😏",
+
+                "Are you sure? 🤨",
+
+                "Really? 😳",
+
+                "Nice try! 😂",
+
+                "Catch me! 😈",
+
+                "Too slow! 🏃",
+
+                "Nope! 😜",
+
+                "Never! 😂"
+
+            ];
+
+
+            const index =
+                Math.min(
+                    escapeCount,
+                    messages.length - 1
+                );
+
+
+            noButton.innerText =
+                messages[index];
+
+
+
+            /* =========================================
+               MAKE YES BIGGER
+            ========================================= */
+
+            const newScale =
+                Math.min(
+                    1 +
+                    escapeCount * 0.03,
+                    1.35
+                );
+
+
+            yesButton.style.transform =
+                `scale(${newScale})`;
+
+
+
+            /* =========================================
+               CREATE HEART
+            ========================================= */
+
+            createHeart(
+                cursorX,
+                cursorY
             );
 
-
-        if (distance < 130) {
-
-            const now =
-                Date.now();
+        }
 
 
-            if (
-                now - lastMove > 180
-            ) {
 
-                lastMove = now;
+        /* =========================================
+           NO BUTTON CLICK
+        ========================================= */
+
+        noButton.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
 
                 moveNoButton(
                     event.clientX,
@@ -641,473 +1253,180 @@ document.addEventListener(
                 );
 
             }
-
-        }
-
-    }
-);
-
-
-/* =================================
-   MOVE NO BUTTON
-================================= */
-
-function moveNoButton(
-    mouseX,
-    mouseY
-) {
-
-    const rect =
-        noBtn.getBoundingClientRect();
-
-
-    const centerX =
-        rect.left +
-        rect.width / 2;
-
-
-    const centerY =
-        rect.top +
-        rect.height / 2;
-
-
-    let dx =
-        centerX - mouseX;
-
-
-    let dy =
-        centerY - mouseY;
-
-
-    const length =
-        Math.sqrt(
-            dx * dx +
-            dy * dy
-        ) || 1;
-
-
-    dx /= length;
-
-    dy /= length;
-
-
-    const jump = 220;
-
-
-    let newX =
-        centerX +
-        dx * jump;
-
-
-    let newY =
-        centerY +
-        dy * jump;
-
-
-    const margin = 15;
-
-
-    newX =
-        Math.max(
-            margin + rect.width / 2,
-            Math.min(
-                window.innerWidth -
-                margin -
-                rect.width / 2,
-                newX
-            )
         );
 
 
-    newY =
-        Math.max(
-            margin + rect.height / 2,
-            Math.min(
-                window.innerHeight -
-                margin -
-                rect.height / 2,
-                newY
-            )
+
+        /* =========================================
+           YES BUTTON
+        ========================================= */
+
+        yesButton.addEventListener(
+            "click",
+            function() {
+
+
+                /* Show message */
+
+                loveMessage.style.display =
+                    "block";
+
+
+                /* Hide NO */
+
+                noButton.style.display =
+                    "none";
+
+
+                /* Change YES */
+
+                yesButton.innerText =
+                    "YES ❤️❤️❤️";
+
+
+                yesButton.style.transform =
+                    "scale(1.2)";
+
+
+
+                /* =====================================
+                   SHOW 7 PHOTOS
+                ===================================== */
+
+                photoContainer.classList.add(
+                    "show"
+                );
+
+
+
+                /* =====================================
+                   CELEBRATION HEARTS
+                ===================================== */
+
+                for (
+                    let i = 0;
+                    i < 70;
+                    i++
+                ) {
+
+                    setTimeout(
+                        function() {
+
+                            createHeart(
+
+                                Math.random() *
+                                window.innerWidth,
+
+                                Math.random() *
+                                window.innerHeight
+
+                            );
+
+                        },
+                        i * 60
+                    );
+
+                }
+
+            }
         );
 
 
-    noBtn.style.position =
-        "fixed";
 
+        /* =========================================
+           CLICK ANYWHERE = HEART
+        ========================================= */
 
-    noBtn.style.left =
-        (
-            newX -
-            rect.width / 2
-        ) + "px";
+        document.addEventListener(
+            "click",
+            function(event) {
 
+                createHeart(
+                    event.clientX,
+                    event.clientY
+                );
 
-    noBtn.style.top =
-        (
-            newY -
-            rect.height / 2
-        ) + "px";
-
-
-    const messages = [
-
-        "NO 😏",
-        "Are you sure? 🤨",
-        "Really? 😂",
-        "Nice try! 😜",
-        "Catch me! 😈",
-        "Too slow! 🏃",
-        "NOPE! 😂"
-
-    ];
-
-
-    noBtn.innerText =
-        messages[
-            Math.floor(
-                Math.random() *
-                messages.length
-            )
-        ];
-
-}
-
-
-/* =================================
-   NO CLICK
-================================= */
-
-noBtn.addEventListener(
-    "click",
-    function(event) {
-
-        event.preventDefault();
-
-        moveNoButton(
-            event.clientX,
-            event.clientY
+            }
         );
 
-    }
-);
 
 
-/* =================================
-   YES CLICK
-================================= */
+        /* =========================================
+           CREATE HEART
+        ========================================= */
 
-yesBtn.addEventListener(
-    "click",
-    function() {
-
-
-        /* ---------------------------
-           Hide question
-        ---------------------------- */
-
-        questionScreen.style.display =
-            "none";
+        function createHeart(
+            x,
+            y
+        ) {
 
 
-        /* ---------------------------
-           Show memory screen
-        ---------------------------- */
-
-        memoryScreen.style.display =
-            "block";
+            const heart =
+                document.createElement(
+                    "div"
+                );
 
 
-        /* ---------------------------
-           Create photos ONLY NOW
-        ---------------------------- */
-
-        createPhotos();
+            heart.className =
+                "heart";
 
 
-        /* ---------------------------
-           Create message
-        ---------------------------- */
+            const hearts = [
 
-        createMessage();
+                "❤️",
+                "💕",
+                "💗",
+                "💖",
+                "💓",
+                "💘",
+                "💝"
 
-
-        /* ---------------------------
-           Hearts
-        ---------------------------- */
-
-        createHeartExplosion();
-
-    }
-);
+            ];
 
 
-/* =================================
-   CREATE THE 7 PHOTOS
-================================= */
-
-function createPhotos() {
-
-    const photos = [
-
-        {
-            file: "image1.jpg",
-            className: "p1"
-        },
-
-        {
-            file: "image2.jpg",
-            className: "p2"
-        },
-
-        {
-            file: "image3.jpg",
-            className: "p3"
-        },
-
-        {
-            file: "image4.jpg",
-            className: "p4"
-        },
-
-        {
-            file: "image5.jpg",
-            className: "p5"
-        },
-
-        {
-            file: "image6.jpg",
-            className: "p6"
-        },
-
-        {
-            file: "image7.jpg",
-            className: "p7"
-        }
-
-    ];
+            heart.innerHTML =
+                hearts[
+                    Math.floor(
+                        Math.random() *
+                        hearts.length
+                    )
+                ];
 
 
-    photos.forEach(
-        function(photo, index) {
+            heart.style.left =
+                x + "px";
+
+
+            heart.style.top =
+                y + "px";
+
+
+            heart.style.fontSize =
+                (
+                    18 +
+                    Math.random() * 25
+                ) + "px";
+
+
+            document.body.appendChild(
+                heart
+            );
 
 
             setTimeout(
                 function() {
 
-                    const img =
-                        document.createElement(
-                            "img"
-                        );
-
-
-                    img.src =
-                        "./" +
-                        photo.file;
-
-
-                    img.className =
-                        "memoryPhoto " +
-                        photo.className;
-
-
-                    img.alt =
-                        "Our Memory " +
-                        (index + 1);
-
-
-                    memoryScreen.appendChild(
-                        img
-                    );
-
+                    heart.remove();
 
                 },
-
-                index * 250
-
+                2000
             );
 
         }
-    );
 
-}
 
-
-/* =================================
-   CREATE CENTER MESSAGE
-================================= */
-
-function createMessage() {
-
-    const message =
-        document.createElement(
-            "div"
-        );
-
-
-    message.className =
-        "message";
-
-
-    message.innerHTML = `
-
-        <h1>
-            I KNEW IT! 😍❤️
-        </h1>
-
-        <p>
-            You said YES! 💕
-            <br><br>
-            These memories are special,
-            but I hope we make
-            thousands more together. 🥰
-        </p>
-
-    `;
-
-
-    memoryScreen.appendChild(
-        message
-    );
-
-}
-
-
-/* =================================
-   CREATE HEART
-================================= */
-
-function createHeart(
-    x,
-    y
-) {
-
-    const heart =
-        document.createElement(
-            "div"
-        );
-
-
-    heart.className =
-        "heart";
-
-
-    const types = [
-
-        "❤️",
-        "💕",
-        "💖",
-        "💗",
-        "💓",
-        "💘",
-        "💝",
-        "🥰"
-
-    ];
-
-
-    heart.innerText =
-        types[
-            Math.floor(
-                Math.random() *
-                types.length
-            )
-        ];
-
-
-    heart.style.left =
-        x + "px";
-
-
-    heart.style.top =
-        y + "px";
-
-
-    heart.style.fontSize =
-        (
-            20 +
-            Math.random() * 30
-        ) + "px";
-
-
-    document.body.appendChild(
-        heart
-    );
-
-
-    setTimeout(
-        function() {
-
-            heart.remove();
-
-        },
-
-        3000
-
-    );
-
-}
-
-
-/* =================================
-   HEART EXPLOSION
-================================= */
-
-function createHeartExplosion() {
-
-    for (
-        let i = 0;
-        i < 100;
-        i++
-    ) {
-
-        setTimeout(
-            function() {
-
-                createHeart(
-
-                    Math.random() *
-                    window.innerWidth,
-
-                    window.innerHeight + 20
-
-                );
-
-            },
-
-            i * 35
-
-        );
-
-    }
-
-}
-
-
-/* =================================
-   CLICK ANYWHERE = HEART
-================================= */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target.tagName ===
-            "BUTTON"
-        ) {
-            return;
-        }
-
-
-        createHeart(
-            event.clientX,
-            event.clientY
-        );
-
-    }
-);
-
-</script>
+    </script>
 
 </body>
+
 </html>
