@@ -4,13 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>For You ❤️</title>
+<title>Do You Love Me? ❤️</title>
 
 <style>
-
-/* ==============================
-   RESET
-================================ */
 
 * {
     box-sizing: border-box;
@@ -19,9 +15,8 @@
 html,
 body {
     margin: 0;
-    padding: 0;
     width: 100%;
-    min-height: 100%;
+    height: 100%;
 }
 
 body {
@@ -29,17 +24,18 @@ body {
     overflow: hidden;
 
     background:
-        radial-gradient(circle at top left, #ffe1ed, transparent 40%),
-        radial-gradient(circle at bottom right, #ffd2e3, transparent 40%),
-        linear-gradient(135deg, #fff0f6, #ffd9e8);
-
-    transition: background 1.5s ease;
+        linear-gradient(
+            135deg,
+            #ffd6e7,
+            #fff0f6,
+            #ffd1e3
+        );
 }
 
 
-/* ==============================
+/* =================================
    QUESTION SCREEN
-================================ */
+================================= */
 
 #questionScreen {
 
@@ -53,11 +49,7 @@ body {
 
     align-items: center;
 
-    z-index: 100;
-
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
+    z-index: 1000;
 }
 
 
@@ -71,13 +63,12 @@ body {
 
     text-align: center;
 
-    background: rgba(255,255,255,0.97);
+    background: white;
 
     border-radius: 30px;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,0.18);
-
+        0 20px 60px rgba(0,0,0,0.18);
 }
 
 
@@ -85,18 +76,17 @@ body {
 
     font-size: 75px;
 
-    animation:
-        heartbeat 1.2s infinite;
+    animation: heartbeat 1.2s infinite;
 }
 
 
 .questionCard h1 {
 
-    margin: 15px 0 10px;
+    color: #ff4f81;
 
     font-size: 38px;
 
-    color: #ff4f81;
+    margin: 15px 0 10px;
 }
 
 
@@ -104,23 +94,19 @@ body {
 
     color: #777;
 
-    font-size: 16px;
-
     margin-bottom: 30px;
 }
 
 
-/* ==============================
+/* =================================
    BUTTONS
-================================ */
+================================= */
 
 .buttons {
 
     display: flex;
 
     justify-content: center;
-
-    align-items: center;
 
     gap: 20px;
 }
@@ -149,16 +135,7 @@ button {
     color: white;
 
     box-shadow:
-        0 8px 25px rgba(255,79,129,0.35);
-
-    transition:
-        transform 0.2s ease;
-}
-
-
-#yesBtn:hover {
-
-    transform: scale(1.08);
+        0 8px 20px rgba(255,79,129,0.3);
 }
 
 
@@ -167,16 +144,12 @@ button {
     background: #eeeeee;
 
     color: #555;
-
-    transition:
-        left 0.25s ease,
-        top 0.25s ease;
 }
 
 
-/* ==============================
+/* =================================
    MEMORY SCREEN
-================================ */
+================================= */
 
 #memoryScreen {
 
@@ -186,86 +159,84 @@ button {
 
     inset: 0;
 
-    width: 100%;
+    width: 100vw;
 
-    height: 100%;
+    height: 100vh;
 
     overflow: hidden;
 
-    opacity: 0;
-
-    z-index: 10;
-
-    transition:
-        opacity 1s ease;
+    background:
+        radial-gradient(
+            circle at center,
+            #fff5f9,
+            #ffd9e8
+        );
 }
 
 
-/* ==============================
+/* =================================
    CENTER MESSAGE
-================================ */
+================================= */
 
-.centerMessage {
+.message {
 
     position: absolute;
 
-    left: 50%;
-
     top: 50%;
+
+    left: 50%;
 
     transform:
         translate(-50%, -50%);
 
-    width: 430px;
+    width: 420px;
 
-    max-width: 80%;
+    max-width: 75%;
 
     padding: 30px;
 
     text-align: center;
 
     background:
-        rgba(255,255,255,0.94);
+        rgba(255,255,255,0.95);
 
     border-radius: 30px;
 
     box-shadow:
         0 20px 60px rgba(0,0,0,0.15);
 
-    z-index: 30;
+    z-index: 20;
 
     animation:
-        messageAppear 1.2s ease;
+        appear 1s ease;
 }
 
 
-.centerMessage h1 {
-
-    margin: 0 0 10px;
+.message h1 {
 
     color: #ff4f81;
 
     font-size: 34px;
+
+    margin: 0 0 12px;
 }
 
 
-.centerMessage p {
-
-    margin: 0;
+.message p {
 
     color: #777;
 
-    font-size: 16px;
-
     line-height: 1.6;
+
+    margin: 0;
 }
 
 
-/* ==============================
+/* =================================
    PHOTOS
-================================ */
+================================= */
 
-.photo {
+.memoryPhoto {
 
     position: absolute;
 
@@ -279,152 +250,116 @@ button {
 
     border-radius: 15px;
 
+    object-fit: cover;
+
     box-shadow:
         0 15px 40px rgba(0,0,0,0.25);
 
-    object-fit: cover;
-
     opacity: 0;
 
-    transform: scale(0.2);
-
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
-
-    z-index: 20;
+    animation:
+        photoAppear 1s ease forwards;
 }
 
 
-/* ==============================
+/* =================================
    PHOTO POSITIONS
-================================ */
+================================= */
 
-.photo1 {
+.p1 {
     left: 4%;
-    top: 7%;
-    transform: rotate(-9deg) scale(0.2);
+    top: 6%;
+    transform: rotate(-8deg);
 }
 
-.photo2 {
+.p2 {
     left: 5%;
-    bottom: 7%;
-    transform: rotate(8deg) scale(0.2);
+    bottom: 6%;
+    transform: rotate(7deg);
 }
 
-.photo3 {
-    left: 27%;
-    top: 4%;
-    transform: rotate(5deg) scale(0.2);
+.p3 {
+    left: 25%;
+    top: 3%;
+    transform: rotate(5deg);
 }
 
-.photo4 {
+.p4 {
     right: 4%;
-    top: 7%;
-    transform: rotate(9deg) scale(0.2);
+    top: 6%;
+    transform: rotate(8deg);
 }
 
-.photo5 {
+.p5 {
     right: 5%;
-    bottom: 7%;
-    transform: rotate(-8deg) scale(0.2);
+    bottom: 6%;
+    transform: rotate(-7deg);
 }
 
-.photo6 {
-    right: 27%;
-    bottom: 4%;
-    transform: rotate(-5deg) scale(0.2);
+.p6 {
+    right: 25%;
+    bottom: 3%;
+    transform: rotate(-5deg);
 }
 
-.photo7 {
+.p7 {
     left: 50%;
     bottom: 1%;
     transform:
         translateX(-50%)
-        rotate(3deg)
-        scale(0.2);
+        rotate(3deg);
 }
 
 
-/* ==============================
-   VISIBLE PHOTOS
-================================ */
+/* =================================
+   PHOTO ANIMATION
+================================= */
 
-.photo.show {
+@keyframes photoAppear {
 
-    opacity: 1;
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(0.2)
+            rotate(0deg);
+    }
+
+    70% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.08)
+            rotate(0deg);
+    }
+
+    100% {
+
+        opacity: 1;
+    }
 }
 
 
-/* Keep rotations after animation */
-
-.photo1.show {
-    transform: rotate(-9deg) scale(1);
-}
-
-.photo2.show {
-    transform: rotate(8deg) scale(1);
-}
-
-.photo3.show {
-    transform: rotate(5deg) scale(1);
-}
-
-.photo4.show {
-    transform: rotate(9deg) scale(1);
-}
-
-.photo5.show {
-    transform: rotate(-8deg) scale(1);
-}
-
-.photo6.show {
-    transform: rotate(-5deg) scale(1);
-}
-
-.photo7.show {
-    transform:
-        translateX(-50%)
-        rotate(3deg)
-        scale(1);
-}
-
-
-/* Hover */
-
-.photo:hover {
-
-    z-index: 50;
-
-    transform:
-        rotate(0deg)
-        scale(1.08) !important;
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,0.3);
-}
-
-
-/* ==============================
+/* =================================
    HEARTS
-================================ */
+================================= */
 
-.floatingHeart {
+.heart {
 
     position: fixed;
 
-    z-index: 200;
+    z-index: 2000;
 
     pointer-events: none;
 
-    font-size: 30px;
-
     animation:
-        heartAnimation 3s linear forwards;
+        heartFloat 3s ease-out forwards;
 }
 
 
-@keyframes heartAnimation {
+@keyframes heartFloat {
 
     0% {
 
@@ -432,8 +367,7 @@ button {
 
         transform:
             translateY(0)
-            scale(0.5)
-            rotate(0deg);
+            scale(0.5);
     }
 
     100% {
@@ -448,9 +382,9 @@ button {
 }
 
 
-/* ==============================
-   ANIMATIONS
-================================ */
+/* =================================
+   HEARTBEAT
+================================= */
 
 @keyframes heartbeat {
 
@@ -465,7 +399,7 @@ button {
 }
 
 
-@keyframes messageAppear {
+@keyframes appear {
 
     from {
 
@@ -487,61 +421,23 @@ button {
 }
 
 
-/* ==============================
+/* =================================
    MOBILE
-================================ */
+================================= */
 
 @media (max-width: 900px) {
 
-    .photo {
+    .memoryPhoto {
 
         width: 120px;
 
         height: 150px;
     }
 
-    .photo1 {
-        left: 2%;
-        top: 3%;
-    }
-
-    .photo2 {
-        left: 2%;
-        bottom: 3%;
-    }
-
-    .photo3 {
-        left: 22%;
-        top: 2%;
-    }
-
-    .photo4 {
-        right: 2%;
-        top: 3%;
-    }
-
-    .photo5 {
-        right: 2%;
-        bottom: 3%;
-    }
-
-    .photo6 {
-        right: 22%;
-        bottom: 2%;
-    }
-
-    .photo7 {
-        bottom: 1%;
-    }
 }
 
 
 @media (max-width: 600px) {
-
-    .questionCard {
-
-        padding: 35px 20px;
-    }
 
     .questionCard h1 {
 
@@ -553,32 +449,28 @@ button {
         font-size: 60px;
     }
 
-    .photo {
+    .memoryPhoto {
 
-        width: 80px;
+        width: 75px;
 
-        height: 105px;
-
-        padding: 5px;
-
-        border-radius: 10px;
+        height: 100px;
     }
 
-    .photo3,
-    .photo6,
-    .photo7 {
+    .p3,
+    .p6,
+    .p7 {
 
         display: none;
     }
 
-    .centerMessage {
+    .message {
 
         width: 300px;
 
         padding: 22px;
     }
 
-    .centerMessage h1 {
+    .message h1 {
 
         font-size: 25px;
     }
@@ -591,9 +483,9 @@ button {
 <body>
 
 
-<!-- ==========================================
+<!-- =================================
      QUESTION
-=========================================== -->
+================================= -->
 
 <div id="questionScreen">
 
@@ -608,7 +500,7 @@ button {
         </h1>
 
         <p>
-            Be honest... but choose wisely 😌💕
+            Be honest... 😌💕
         </p>
 
         <div class="buttons">
@@ -628,108 +520,26 @@ button {
 </div>
 
 
-
-<!-- ==========================================
-     MEMORY SCREEN
-=========================================== -->
+<!-- =================================
+     EMPTY MEMORY SCREEN
+     
+     IMPORTANT:
+     THERE ARE NO PHOTOS HERE.
+     JAVASCRIPT WILL CREATE THEM
+     ONLY AFTER YES IS CLICKED.
+================================= -->
 
 <div id="memoryScreen">
-
-
-    <!-- PHOTO 1 -->
-
-    <img
-        src="./image1.jpg"
-        class="photo photo1"
-        alt="Memory 1"
-    >
-
-
-    <!-- PHOTO 2 -->
-
-    <img
-        src="./image2.jpg"
-        class="photo photo2"
-        alt="Memory 2"
-    >
-
-
-    <!-- PHOTO 3 -->
-
-    <img
-        src="./image3.jpg"
-        class="photo photo3"
-        alt="Memory 3"
-    >
-
-
-    <!-- PHOTO 4 -->
-
-    <img
-        src="./image4.jpg"
-        class="photo photo4"
-        alt="Memory 4"
-    >
-
-
-    <!-- PHOTO 5 -->
-
-    <img
-        src="./image5.jpg"
-        class="photo photo5"
-        alt="Memory 5"
-    >
-
-
-    <!-- PHOTO 6 -->
-
-    <img
-        src="./image6.jpg"
-        class="photo photo6"
-        alt="Memory 6"
-    >
-
-
-    <!-- PHOTO 7 -->
-
-    <img
-        src="./image7.jpg"
-        class="photo photo7"
-        alt="Memory 7"
-    >
-
-
-    <!-- CENTER MESSAGE -->
-
-    <div class="centerMessage">
-
-        <h1>
-            I KNEW IT! 😍❤️
-        </h1>
-
-        <p>
-            You said YES! 💕
-            <br><br>
-
-            These are just a few of
-            our beautiful memories.
-            <br>
-
-            Here's to making many more together. 🥰
-        </p>
-
-    </div>
-
 
 </div>
 
 
-
 <script>
 
-/* ==========================================
+
+/* =================================
    GET ELEMENTS
-=========================================== */
+================================= */
 
 const yesBtn =
     document.getElementById("yesBtn");
@@ -743,18 +553,15 @@ const questionScreen =
 const memoryScreen =
     document.getElementById("memoryScreen");
 
-const photos =
-    document.querySelectorAll(".photo");
-
-
-let gameStarted = false;
 
 let lastMove = 0;
 
+let gameStarted = false;
 
-/* ==========================================
-   ENABLE NO BUTTON ESCAPE
-=========================================== */
+
+/* =================================
+   START NO BUTTON
+================================= */
 
 setTimeout(function() {
 
@@ -763,9 +570,9 @@ setTimeout(function() {
 }, 800);
 
 
-/* ==========================================
-   NO BUTTON ESCAPES FROM MOUSE
-=========================================== */
+/* =================================
+   NO BUTTON ESCAPES
+================================= */
 
 document.addEventListener(
     "mousemove",
@@ -774,6 +581,7 @@ document.addEventListener(
         if (!gameStarted) {
             return;
         }
+
 
         if (
             questionScreen.style.display ===
@@ -840,9 +648,9 @@ document.addEventListener(
 );
 
 
-/* ==========================================
+/* =================================
    MOVE NO BUTTON
-=========================================== */
+================================= */
 
 function moveNoButton(
     mouseX,
@@ -871,20 +679,19 @@ function moveNoButton(
         centerY - mouseY;
 
 
-    const distance =
+    const length =
         Math.sqrt(
             dx * dx +
             dy * dy
         ) || 1;
 
 
-    dx /= distance;
+    dx /= length;
 
-    dy /= distance;
+    dy /= length;
 
 
-    const jump =
-        220;
+    const jump = 220;
 
 
     let newX =
@@ -942,7 +749,7 @@ function moveNoButton(
         ) + "px";
 
 
-    const texts = [
+    const messages = [
 
         "NO 😏",
         "Are you sure? 🤨",
@@ -956,19 +763,19 @@ function moveNoButton(
 
 
     noBtn.innerText =
-        texts[
+        messages[
             Math.floor(
                 Math.random() *
-                texts.length
+                messages.length
             )
         ];
 
 }
 
 
-/* ==========================================
-   IF SHE TRIES TO CLICK NO
-=========================================== */
+/* =================================
+   NO CLICK
+================================= */
 
 noBtn.addEventListener(
     "click",
@@ -985,103 +792,189 @@ noBtn.addEventListener(
 );
 
 
-/* ==========================================
+/* =================================
    YES CLICK
-=========================================== */
+================================= */
 
 yesBtn.addEventListener(
     "click",
     function() {
 
 
-        /* ------------------------------
+        /* ---------------------------
            Hide question
-        ------------------------------- */
+        ---------------------------- */
 
-        questionScreen.style.opacity =
-            "0";
-
-        questionScreen.style.transform =
-            "scale(0.7)";
+        questionScreen.style.display =
+            "none";
 
 
-        /* ------------------------------
-           Wait for fade
-        ------------------------------- */
+        /* ---------------------------
+           Show memory screen
+        ---------------------------- */
 
-        setTimeout(
-            function() {
-
-
-                questionScreen.style.display =
-                    "none";
+        memoryScreen.style.display =
+            "block";
 
 
-                /* --------------------------
-                   Show memory screen
-                --------------------------- */
+        /* ---------------------------
+           Create photos ONLY NOW
+        ---------------------------- */
 
-                memoryScreen.style.display =
-                    "block";
-
-
-                /* Make it visible */
-
-                setTimeout(
-                    function() {
-
-                        memoryScreen.style.opacity =
-                            "1";
-
-                    },
-                    50
-                );
+        createPhotos();
 
 
-                /* --------------------------
-                   Show photos one by one
-                --------------------------- */
+        /* ---------------------------
+           Create message
+        ---------------------------- */
 
-                photos.forEach(
-                    function(photo, index) {
-
-                        setTimeout(
-                            function() {
-
-                                photo.classList.add(
-                                    "show"
-                                );
-
-                            },
-
-                            250 +
-                            index * 300
-
-                        );
-
-                    }
-                );
+        createMessage();
 
 
-                /* --------------------------
-                   Hearts
-                --------------------------- */
+        /* ---------------------------
+           Hearts
+        ---------------------------- */
 
-                createHeartExplosion();
-
-
-            },
-
-            800
-        );
+        createHeartExplosion();
 
     }
 );
 
 
-/* ==========================================
-   HEART CREATION
-=========================================== */
+/* =================================
+   CREATE THE 7 PHOTOS
+================================= */
+
+function createPhotos() {
+
+    const photos = [
+
+        {
+            file: "image1.jpg",
+            className: "p1"
+        },
+
+        {
+            file: "image2.jpg",
+            className: "p2"
+        },
+
+        {
+            file: "image3.jpg",
+            className: "p3"
+        },
+
+        {
+            file: "image4.jpg",
+            className: "p4"
+        },
+
+        {
+            file: "image5.jpg",
+            className: "p5"
+        },
+
+        {
+            file: "image6.jpg",
+            className: "p6"
+        },
+
+        {
+            file: "image7.jpg",
+            className: "p7"
+        }
+
+    ];
+
+
+    photos.forEach(
+        function(photo, index) {
+
+
+            setTimeout(
+                function() {
+
+                    const img =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    img.src =
+                        "./" +
+                        photo.file;
+
+
+                    img.className =
+                        "memoryPhoto " +
+                        photo.className;
+
+
+                    img.alt =
+                        "Our Memory " +
+                        (index + 1);
+
+
+                    memoryScreen.appendChild(
+                        img
+                    );
+
+
+                },
+
+                index * 250
+
+            );
+
+        }
+    );
+
+}
+
+
+/* =================================
+   CREATE CENTER MESSAGE
+================================= */
+
+function createMessage() {
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "message";
+
+
+    message.innerHTML = `
+
+        <h1>
+            I KNEW IT! 😍❤️
+        </h1>
+
+        <p>
+            You said YES! 💕
+            <br><br>
+            These memories are special,
+            but I hope we make
+            thousands more together. 🥰
+        </p>
+
+    `;
+
+
+    memoryScreen.appendChild(
+        message
+    );
+
+}
+
+
+/* =================================
+   CREATE HEART
+================================= */
 
 function createHeart(
     x,
@@ -1089,14 +982,16 @@ function createHeart(
 ) {
 
     const heart =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     heart.className =
-        "floatingHeart";
+        "heart";
 
 
-    const hearts = [
+    const types = [
 
         "❤️",
         "💕",
@@ -1111,10 +1006,10 @@ function createHeart(
 
 
     heart.innerText =
-        hearts[
+        types[
             Math.floor(
                 Math.random() *
-                hearts.length
+                types.length
             )
         ];
 
@@ -1145,15 +1040,17 @@ function createHeart(
             heart.remove();
 
         },
+
         3000
+
     );
 
 }
 
 
-/* ==========================================
+/* =================================
    HEART EXPLOSION
-=========================================== */
+================================= */
 
 function createHeartExplosion() {
 
@@ -1171,8 +1068,7 @@ function createHeartExplosion() {
                     Math.random() *
                     window.innerWidth,
 
-                    window.innerHeight +
-                    20
+                    window.innerHeight + 20
 
                 );
 
@@ -1187,9 +1083,9 @@ function createHeartExplosion() {
 }
 
 
-/* ==========================================
+/* =================================
    CLICK ANYWHERE = HEART
-=========================================== */
+================================= */
 
 document.addEventListener(
     "click",
